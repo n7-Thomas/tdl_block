@@ -15,7 +15,7 @@ import fr.n7.stl.tam.ast.TAMInstruction;
  * @author Marc Pantel
  *
  */
-class TAMInstructionImpl implements TAMInstruction {
+public class TAMInstructionImpl implements TAMInstruction {
 
 	/**
 	 * Each TAM instruction has a unique kind, i.e. the name of the instruction.

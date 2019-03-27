@@ -10,9 +10,8 @@ import fr.n7.stl.block.ast.instruction.Instruction;
 import fr.n7.stl.block.ast.scope.Declaration;
 import fr.n7.stl.block.ast.scope.HierarchicalScope;
 import fr.n7.stl.block.ast.scope.SymbolTable;
-import fr.n7.stl.tam.ast.Fragment;
-import fr.n7.stl.tam.ast.Register;
-import fr.n7.stl.tam.ast.TAMFactory;
+import fr.n7.stl.tam.ast.impl.*;
+import fr.n7.stl.tam.ast.*;
 
 /**
  * Represents a Block node in the Abstract Syntax Tree node for the Bloc language.
@@ -86,7 +85,9 @@ public class Block {
 	 * @param _offset Inherited Current offset for the address of the variables.
 	 */	
 	public void allocateMemory(Register _register, int _offset) {
-		throw new SemanticsUndefinedException("Semantics allocateMemory is undefined in Block.");
+		for (Instruction _instruction : this.instructions) {
+			_instruction.allocateMemory(_register, _offset); // PEUT ETRE A MODIFIER
+		}
 	}
 
 	/**
@@ -96,7 +97,17 @@ public class Block {
 	 * @return Synthesized AST for the generated TAM code.
 	 */
 	public Fragment getCode(TAMFactory _factory) {
-		throw new SemanticsUndefinedException("Semantics generateCode is undefined in Block.");
+		Fragment code = new FragmentImpl();
+		for(Instruction i: this.instructions) {
+			code.append(i.getCode(_factory));
+		}
+		
+
+		TAMInstruction pop = new TAMInstructionImpl(TAMInstructionKind.POP, null, null, null, null, null, null);
+		//AjouterVarLocales
+		code.add(pop);
+		
+		return code;
 	}
 
 }

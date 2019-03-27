@@ -8,7 +8,7 @@ package fr.n7.stl.tam.ast.impl;
  * @author Marc Pantel
  *
  */
-enum TAMInstructionKind {
+public enum TAMInstructionKind {
 	LOAD, LOADL, LOADI, LOADA,
 	STORE, STOREI,
 	PUSH, POP,
